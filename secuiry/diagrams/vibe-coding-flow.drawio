@@ -1,0 +1,51 @@
+<mxfile host="65bd71144e">
+    <diagram id="vibe-coding-flow" name="Vibe Coding Flow">
+        <mxGraphModel dx="978" dy="926" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="n1" value="개발자: 요구사항 정의" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;fontSize=16;align=center;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="200" width="190" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="n2" value="개발자: 테스트 작성" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6f4ea;strokeColor=#34a853;fontSize=16;align=center;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="350" y="200" width="190" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="n3" value="AI: 개발 수행" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3cd;strokeColor=#f4c20d;fontSize=16;align=center;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="200" width="210" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="n4" value="테스트 실패 시 →&amp;nbsp;&amp;nbsp;오류 수정" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fde7e9;strokeColor=#ea4335;fontSize=16;align=center;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="320" width="210" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="n5" value="모든 테스트 통과 → 최종 검토 및 배포" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;fontSize=16;align=center;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="840" y="200" width="250" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;fontColor=#000000;" parent="1" source="n1" target="n2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;fontColor=#000000;" parent="1" source="n2" target="n3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;fontColor=#000000;" parent="1" source="n3" target="n5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeDasharray=4 4;strokeColor=#ea4335;strokeWidth=2;fontColor=#000000;" parent="1" source="n3" target="n4" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="650" y="290"/>
+                            <mxPoint x="650" y="290"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeDasharray=4 4;strokeColor=#ea4335;strokeWidth=2;fontColor=#000000;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" parent="1" source="n4" edge="1" target="n3">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="850" y="270" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="710" y="370"/>
+                            <mxPoint x="710" y="370"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

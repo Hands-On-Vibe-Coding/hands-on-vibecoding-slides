@@ -1,0 +1,50 @@
+<mxfile host="65bd71144e">
+    <diagram id="certification-process" name="Certification Process">
+        <mxGraphModel dx="978" dy="926" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="a1" value="범위 정의" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;fontSize=16;align=center;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="40" width="120" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="a2" value="위험 평가" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6f4ea;strokeColor=#34a853;fontSize=16;align=center;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="250" y="40" width="120" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="a3" value="통제 구현" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3cd;strokeColor=#f4c20d;fontSize=16;align=center;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="400" y="40" width="120" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="a4" value="문서화" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fde7e9;strokeColor=#ea4335;fontSize=16;align=center;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="550" y="40" width="130" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="a5" value="내부 감사" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0e0e0;strokeColor=#757575;fontSize=16;align=center;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="710" y="40" width="130" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="a6" value="인증 심사" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;fontSize=16;align=center;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="870" y="40" width="130" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="ae1" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeWidth=2;fontColor=#000000;" parent="1" source="a1" target="a2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ae2" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeWidth=2;fontColor=#000000;" parent="1" source="a2" target="a3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ae3" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeWidth=2;fontColor=#000000;" parent="1" source="a3" target="a4" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="560" y="75"/>
+                            <mxPoint x="560" y="75"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ae4" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeWidth=2;fontColor=#000000;" parent="1" source="a4" target="a5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ae5" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeWidth=2;fontColor=#000000;" parent="1" source="a5" target="a6" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="680" y="380" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

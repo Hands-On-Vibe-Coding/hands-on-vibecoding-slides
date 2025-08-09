@@ -1,54 +1,123 @@
-# MARP Slide Build System
-# Converts markdown slides to PDF, PPT, and HTML formats
+# MARP Slide Build System (new layout)
+# Converts markdown slides to PDF, PPT, and HTML formats next to their source files
 
-SOURCE_DIR := source
-OUTPUT_DIR := output
 MARP := marp
 
-# Find all markdown files in source directory
-MD_FILES := $(wildcard $(SOURCE_DIR)/*.md)
-BASE_NAMES := $(basename $(notdir $(MD_FILES)))
+# draw.io Desktop CLI 경로 자동 감지 (macOS 기준)
+# 참고: https://tomd.xyz/how-i-use-drawio/
+# 우선 순위: /Applications/draw.io.app(...) -> PATH 내 drawio
+ifneq (,$(wildcard /Applications/draw.io.app/Contents/MacOS/draw.io))
+  DRAWIO_BIN := /Applications/draw.io.app/Contents/MacOS/draw.io
+else
+  DRAWIO_BIN := $(shell command -v drawio 2>/dev/null)
+endif
 
-# Define output files
-PDF_FILES := $(addprefix $(OUTPUT_DIR)/, $(addsuffix .pdf, $(BASE_NAMES)))
-PPTX_FILES := $(addprefix $(OUTPUT_DIR)/, $(addsuffix .pptx, $(BASE_NAMES)))
-HTML_FILES := $(addprefix $(OUTPUT_DIR)/, $(addsuffix .html, $(BASE_NAMES)))
+# New layout: decks live under top-level dirs (e.g., devops/devops.md, secuiry/security.md)
+DECK_MD := $(wildcard */*.md)
+DECK_PDF := $(DECK_MD:%.md=%.pdf)
+DECK_PPTX := $(DECK_MD:%.md=%.pptx)
+DECK_HTML := $(DECK_MD:%.md=%.html)
 
-# Individual file targets for specific formats
-define file_targets
-$(foreach name,$(BASE_NAMES),$(eval $(name)-pdf: $(OUTPUT_DIR)/$(name).pdf))
-$(foreach name,$(BASE_NAMES),$(eval $(name)-pptx: $(OUTPUT_DIR)/$(name).pptx))
-$(foreach name,$(BASE_NAMES),$(eval $(name)-html: $(OUTPUT_DIR)/$(name).html))
-$(foreach name,$(BASE_NAMES),$(eval $(name): $(OUTPUT_DIR)/$(name).pdf $(OUTPUT_DIR)/$(name).pptx $(OUTPUT_DIR)/$(name).html))
-endef
-$(eval $(call file_targets))
+# secuiry diagrams (draw.io -> svg in-place)
+SECUIRY_DIAGRAMS_DIR := secuiry/diagrams
+SECUIRY_DRAWIO := $(wildcard $(SECUIRY_DIAGRAMS_DIR)/*.drawio)
+SECUIRY_SVG := $(SECUIRY_DRAWIO:.drawio=.svg)
 
-.PHONY: all pdf pptx html clean help list-files $(BASE_NAMES) $(foreach name,$(BASE_NAMES),$(name)-pdf $(name)-pptx $(name)-html)
+# Handle positional arg for `make preview <name>`
+ifeq (preview,$(firstword $(MAKECMDGOALS)))
+  PREVIEW_NAME := $(word 2,$(MAKECMDGOALS))
+  ifneq ($(PREVIEW_NAME),)
+    $(eval $(PREVIEW_NAME):;@:)
+  endif
+endif
+
+# Convenience aliases per deck
+BASE_NAMES := $(basename $(notdir $(DECK_MD)))
+
+# Define output files (no central output dir)
+PDF_FILES := $(DECK_PDF)
+PPTX_FILES := $(DECK_PPTX)
+HTML_FILES := $(DECK_HTML)
+
+# Per-deck convenience targets: build-<name> and <name>
+$(foreach n,$(BASE_NAMES),$(eval build-$(n): $$(firstword $$(wildcard */$(n).pdf)) $$(firstword $$(wildcard */$(n).pptx)) $$(firstword $$(wildcard */$(n).html))))
+$(foreach n,$(BASE_NAMES),$(eval $(n): build-$(n)))
+
+.PHONY: all pdf pptx html preview diagrams diagrams-security clean help list-files $(BASE_NAMES) $(foreach name,$(BASE_NAMES),build-$(name))
 
 # Default target
 all: pdf pptx html
 
-# Create output directory if it doesn't exist
-$(OUTPUT_DIR):
-	mkdir -p $(OUTPUT_DIR)
-
 # PDF generation
 pdf: $(PDF_FILES)
 
-$(OUTPUT_DIR)/%.pdf: $(SOURCE_DIR)/%.md | $(OUTPUT_DIR)
+%.pdf: %.md
 	$(MARP) --pdf --allow-local-files --output $@ $<
 
 # PowerPoint generation
 pptx: $(PPTX_FILES)
 
-$(OUTPUT_DIR)/%.pptx: $(SOURCE_DIR)/%.md | $(OUTPUT_DIR)
+%.pptx: %.md
 	$(MARP) --pptx --allow-local-files --output $@ $<
 
 # HTML generation
 html: $(HTML_FILES)
 
-$(OUTPUT_DIR)/%.html: $(SOURCE_DIR)/%.md | $(OUTPUT_DIR)
+%.html: %.md
 	$(MARP) --html --allow-local-files --output $@ $<
+
+# Ensure secuiry deck HTML depends on exported SVG diagrams
+secuiry/security.html: $(SECUIRY_SVG)
+
+# Export all diagrams (for all decks if expanded later)
+diagrams: diagrams-security
+
+# Export secuiry deck diagrams (drawio -> svg)
+diagrams-security: $(SECUIRY_SVG)
+
+# Rule: .drawio -> .svg (in-place)
+$(SECUIRY_DIAGRAMS_DIR)/%.svg: $(SECUIRY_DIAGRAMS_DIR)/%.drawio
+	@if [ -z "$(DRAWIO_BIN)" ]; then \
+		echo "[ERR] draw.io CLI를 찾을 수 없습니다."; \
+		echo "macOS: brew install --cask drawio"; \
+		exit 1; \
+	fi; \
+	"$(DRAWIO_BIN)" -x -f svg -o $@ $<
+
+# 편의: draw.io 설치 체크
+.PHONY: check-drawio
+check-drawio:
+	@set -e; \
+	if [ -x /Applications/draw.io.app/Contents/MacOS/draw.io ]; then \
+		echo "draw.io app found: /Applications/draw.io.app/Contents/MacOS/draw.io"; \
+	elif command -v drawio >/dev/null 2>&1; then \
+		echo "drawio CLI found in PATH: $$(command -v drawio)"; \
+	else \
+		echo "draw.io CLI not found."; \
+		echo "Install (macOS): brew install --cask drawio"; \
+	fi
+
+# Preview a specific slide deck in browser (make preview security|devops|path/to/file.md)
+preview:
+	@if [ -z "$(PREVIEW_NAME)" ]; then \
+		echo "Usage: make preview <security|devops|path/to.md>"; exit 1; \
+	fi; \
+	FILE=""; \
+	if [ "$(PREVIEW_NAME)" = "security" ] || [ "$(PREVIEW_NAME)" = "secuiry" ]; then \
+		FILE="secuiry/security.md"; \
+	elif [ "$(PREVIEW_NAME)" = "devops" ]; then \
+		FILE="devops/devops.md"; \
+	elif [ -f "$(PREVIEW_NAME)" ]; then \
+		FILE="$(PREVIEW_NAME)"; \
+	fi; \
+	if [ -z "$$FILE" ] || [ ! -f "$$FILE" ]; then \
+		echo "Not found: $(PREVIEW_NAME)"; exit 1; \
+	fi; \
+	case "$$FILE" in \
+	  secuiry/*) $(MAKE) diagrams-security ;; \
+	  *) true ;; \
+	esac; \
+	$(MARP) --preview --allow-local-files "$$FILE"
 
 # List available markdown files
 list-files:
@@ -67,20 +136,13 @@ clean:
 
 # Show help
 help:
-	@echo "Available targets:"
-	@echo "  all           - Generate PDF, PPTX, and HTML files (default)"
-	@echo "  pdf           - Generate PDF files only"
-	@echo "  pptx          - Generate PowerPoint files only"
-	@echo "  html          - Generate HTML files only"
-	@echo "  list-files    - Show available markdown files and usage examples"
-	@echo "  clean         - Remove all generated files"
-	@echo "  help          - Show this help message"
-	@echo ""
-	@echo "File-specific targets:"
-	@echo "  <filename>       - Generate all formats for specific file"
-	@echo "  <filename>-pdf   - Generate PDF only for specific file"
-	@echo "  <filename>-pptx  - Generate PPTX only for specific file"
-	@echo "  <filename>-html  - Generate HTML only for specific file"
-	@echo ""
-	@echo "Source files: $(MD_FILES)"
-	@echo "Output directory: $(OUTPUT_DIR)"
+	@echo "Available targets:"; \
+	echo "  all           - Generate PDF, PPTX, and HTML files (default)"; \
+	echo "  pdf|pptx|html - Generate respective formats for all decks"; \
+	echo "  security      - Build secuiry/security.{pdf,pptx,html}"; \
+	echo "  devops        - Build devops/devops.{pdf,pptx,html}"; \
+	echo "  diagrams      - Export all draw.io diagrams to SVG"; \
+	echo "  diagrams-security - Export secuiry diagrams"; \
+	echo "  preview <deck|path> - Preview deck (auto-exports diagrams for secuiry)"; \
+	echo "  list-files    - Show detected decks and diagrams"; \
+	echo "  clean         - Remove generated pdf/pptx/html near sources"
