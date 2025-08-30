@@ -43,7 +43,14 @@ HTML_FILES := $(DECK_HTML)
 $(foreach n,$(BASE_NAMES),$(eval build-$(n): $$(firstword $$(wildcard */$(n).pdf)) $$(firstword $$(wildcard */$(n).pptx)) $$(firstword $$(wildcard */$(n).html))))
 $(foreach n,$(BASE_NAMES),$(eval $(n): build-$(n)))
 
-.PHONY: all pdf pptx html preview diagrams diagrams-security clean help list-files $(BASE_NAMES) $(foreach name,$(BASE_NAMES),build-$(name))
+# Directory-based targets: build by directory name
+DECK_DIRS := $(sort $(dir $(DECK_MD)))
+DECK_DIR_NAMES := $(patsubst %/,%,$(DECK_DIRS))
+
+# Create targets for each directory (e.g., make secuiry, make devops)  
+$(foreach d,$(DECK_DIR_NAMES),$(eval $(d): $$(patsubst %.md,%.pdf,$$(wildcard $(d)/*.md)) $$(patsubst %.md,%.pptx,$$(wildcard $(d)/*.md)) $$(patsubst %.md,%.html,$$(wildcard $(d)/*.md))))
+
+.PHONY: all pdf pptx html preview diagrams diagrams-security clean help list-files $(BASE_NAMES) $(foreach name,$(BASE_NAMES),build-$(name)) $(DECK_DIR_NAMES)
 
 # Default target
 all: pdf pptx html
@@ -139,8 +146,14 @@ help:
 	@echo "Available targets:"; \
 	echo "  all           - Generate PDF, PPTX, and HTML files (default)"; \
 	echo "  pdf|pptx|html - Generate respective formats for all decks"; \
-	echo "  security      - Build secuiry/security.{pdf,pptx,html}"; \
-	echo "  devops        - Build devops/devops.{pdf,pptx,html}"; \
+	echo ""; \
+	echo "Directory-based targets:"; \
+	$(foreach d,$(DECK_DIR_NAMES),echo "  $(d)          - Build all formats for $(d) directory";) \
+	echo ""; \
+	echo "Deck-based targets:"; \
+	$(foreach n,$(BASE_NAMES),echo "  $(n)          - Build all formats for $(n).md";) \
+	echo ""; \
+	echo "Other targets:"; \
 	echo "  diagrams      - Export all draw.io diagrams to SVG"; \
 	echo "  diagrams-security - Export secuiry diagrams"; \
 	echo "  preview <deck|path> - Preview deck (auto-exports diagrams for secuiry)"; \
