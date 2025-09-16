@@ -12,7 +12,7 @@ else
   DRAWIO_BIN := $(shell command -v drawio 2>/dev/null)
 endif
 
-# New layout: decks live under top-level dirs (e.g., devops/devops.md, secuiry/security.md)
+# New layout: decks live under top-level dirs (e.g., devops/devops.md, secuiry/security.md, SELU/SELU.md)
 DECK_MD := $(wildcard */*.md)
 DECK_PDF := $(DECK_MD:%.md=%.pdf)
 DECK_PPTX := $(DECK_MD:%.md=%.pptx)
@@ -104,16 +104,18 @@ check-drawio:
 		echo "Install (macOS): brew install --cask drawio"; \
 	fi
 
-# Preview a specific slide deck in browser (make preview security|devops|path/to/file.md)
+# Preview a specific slide deck in browser (make preview security|devops|selu|path/to/file.md)
 preview:
 	@if [ -z "$(PREVIEW_NAME)" ]; then \
-		echo "Usage: make preview <security|devops|path/to.md>"; exit 1; \
+		echo "Usage: make preview <security|devops|selu|path/to.md>"; exit 1; \
 	fi; \
 	FILE=""; \
 	if [ "$(PREVIEW_NAME)" = "security" ] || [ "$(PREVIEW_NAME)" = "secuiry" ]; then \
 		FILE="secuiry/security.md"; \
 	elif [ "$(PREVIEW_NAME)" = "devops" ]; then \
 		FILE="devops/devops.md"; \
+	elif [ "$(PREVIEW_NAME)" = "selu" ] || [ "$(PREVIEW_NAME)" = "SELU" ]; then \
+		FILE="SELU/SELU.md"; \
 	elif [ -f "$(PREVIEW_NAME)" ]; then \
 		FILE="$(PREVIEW_NAME)"; \
 	fi; \
