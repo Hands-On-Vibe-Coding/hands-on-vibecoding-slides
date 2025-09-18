@@ -1,6 +1,7 @@
 ---
 marp: true
 theme: default
+class: invert
 title: Vibe Codingによるソフトウェアエンジニアリングのレベルアップ
 size: 16:9
 paginate: true
