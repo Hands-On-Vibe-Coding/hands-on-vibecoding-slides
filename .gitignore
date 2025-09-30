@@ -1,3 +1,7 @@
 
 # YoYo AI version control directory
 .yoyo/
+
+*.html
+*.pdf
+*.pptx
