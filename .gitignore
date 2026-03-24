@@ -3,7 +3,9 @@
 .yoyo/
 
 *.html
+!OpenClawBestPractices/*.html
 *.pdf
 *.pptx
 .DS_Store
 ~$*
+ideation/
