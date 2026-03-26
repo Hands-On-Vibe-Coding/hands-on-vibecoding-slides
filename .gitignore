@@ -4,6 +4,7 @@
 
 *.html
 !OpenClawBestPractices/*.html
+!SoVC2026/*.html
 *.pdf
 *.pptx
 .DS_Store
