@@ -164,7 +164,7 @@ style: |
 - **ルールと好み**をどこで分けるか
 - 仕様、実装、ハーネスはどう抽象化されていくか
 - **Intent Engineering** — なぜ最終的には意図だけが残るのか
-- その流れがすでに現実となっている事例 — OpenClaw、oh-my-claudecode
+- その流れがすでに現実となっている事例 — OpenClaw
 - では今、何から始めるか
 
 <!--
@@ -176,7 +176,7 @@ style: |
 - **규칙과 취향**을 어디서 나눌 것인가
 - 사양, 구현, 하네스가 어떻게 추상화되는가
 - **Intent Engineering** — 왜 결국 의도만 남는가
-- 그 흐름이 이미 현실인 사례 — OpenClaw, oh-my-claudecode
+- 그 흐름이 이미 현실인 사례 — OpenClaw
 - 그래서 지금 무엇부터 시작할 것인가
 -->
 
@@ -572,6 +572,68 @@ seed → exploring → clarified → build → killed
 
 ---
 
+## OpenClawとは? — "The lobster way 🦞"
+
+オーストリアのバイブコーダー **Peter Steinberger** が 2025年11月に始めた個人 AI アシスタント・フレームワーク
+
+- **ローカル優先** — どの OS・プラットフォームでも動作
+- **モデル非依存(BYOM)** — Claude · GPT · DeepSeek どの LLM とも結合
+- **AGENTS.md + SOUL.md** — プレーンな Markdown でエージェントの運用と人格を記述
+- 名前は **Clawdbot → Moltbot → OpenClaw** — 二度のリネームを経て定着
+- スローガン: <span class="accent">"Your own personal AI assistant. Any OS. Any Platform."</span>
+
+> 一人が5か月で作ったフレームワークが <span class="accent">バイブコーディング運動の中心軸</span> になった。
+
+<!--
+[한국어 원문]
+## OpenClaw란? — "The lobster way 🦞"
+
+오스트리아 바이브 코더 **Peter Steinberger**가 2025년 11월에 시작한 개인 AI 어시스턴트 프레임워크
+
+- **로컬 우선** — 어떤 OS·플랫폼에서도 동작
+- **모델 무관(BYOM)** — Claude · GPT · DeepSeek 어느 LLM과도 결합
+- **AGENTS.md + SOUL.md** — 평문 마크다운으로 에이전트의 운영·정체성을 기술
+- 이름은 **Clawdbot → Moltbot → OpenClaw** — 두 번의 리네이밍 끝에 정착
+- 슬로건: "Your own personal AI assistant. Any OS. Any Platform."
+
+> 한 사람이 5개월 만에 만든 프레임워크가 바이브 코딩 운동의 중심축이 되었다.
+-->
+
+---
+
+## GitHub 史上最速で星を集めたプロジェクト
+
+| 指標 | 規模 *(2026.04 時点)* |
+|------|---------------------|
+| GitHub スター | <span class="accent">347,000+</span> — 史上最多の新記録 |
+| Forks | 74,800+ |
+| コントリビューター | 900+ |
+| Discord メンバー | 180,000 *(2か月で2倍)* |
+| r/openclaw 購読者 | 450,000 |
+| 公開エージェント・テンプレート | 162 *(awesome-openclaw-agents)* |
+
+- <span class="accent">"AI/vibe-coded PRs welcome!"</span> — バイブコーディングを公式に歓迎する初のメジャー OSS
+- 開始 5か月で Fortune 500 のセルフホスト・セキュリティ要件まで到達
+
+<!--
+[한국어 원문]
+## GitHub 역사상 가장 빠르게 별을 모은 프로젝트
+
+| 지표 | 규모 (2026.04 기준) |
+|------|---------------------|
+| GitHub 별 | 347,000+ — 역사상 최다 신기록 |
+| Forks | 74,800+ |
+| 컨트리뷰터 | 900+ |
+| Discord 멤버 | 180,000 (2개월만에 2배) |
+| r/openclaw 구독자 | 450,000 |
+| 공개 에이전트 템플릿 | 162 (awesome-openclaw-agents) |
+
+- "AI/vibe-coded PRs welcome!" — 바이브 코딩을 공식 환영하는 첫 메이저 OSS
+- 시작 5개월 만에 Fortune 500의 자체 호스팅 보안 요구치까지 도달
+-->
+
+---
+
 ## OpenClaw: 一人 + AI = 20人チームの速度
 
 GitHub **31万+ スター**。Vibe Coding がどこまで来たかを示す事例。
@@ -713,45 +775,6 @@ OpenClaw에서 가장 많이 깨진 곳은 **skill의 내용이 아니었다**
 > "skill이 무엇을 하는가"보다 "어디서 보이고, 어떻게 실행되는가"가 더 자주 깨진다.
 
 > 바이브 코딩 인프라는 prompt 품질보다 먼저 — 경로·격리·계약을 설계하라.
--->
-
----
-
-## oh-my-claudecode: 意図ベースのマルチエージェント・オーケストレーション
-
-意図を渡すだけで、専門エージェントが順に処理する:
-
-```
-意図の伝達
-  → explore (コードベース探索)
-    → research (調査)
-      → plan (実装計画の策定)
-        → implement (コーディング)
-          → verify (検証)
-            → commit (コミット)
-```
-
-- 探索からコミットまで自動化されたパイプライン
-- 役割が分かれた専門エージェントが各段階を担当
-- <span class="accent">すでにプロダクションのワークフローとして稼働中</span>
-
-<!--
-[한국어 원문]
-## oh-my-claudecode: 의도 기반 멀티 에이전트 오케스트레이션
-
-의도만 주면 전문 에이전트가 순서대로 수행한다:
-
-의도 전달
-  → explore (코드베이스 탐색)
-    → research (조사)
-      → plan (구현 계획 수립)
-        → implement (코드 작성)
-          → verify (검증)
-            → commit (커밋)
-
-- 탐색부터 커밋까지 자동 파이프라인
-- 역할이 분리된 전문 에이전트가 각 단계를 맡는다
-- 이미 프로덕션 워크플로로 동작 중
 -->
 
 ---
