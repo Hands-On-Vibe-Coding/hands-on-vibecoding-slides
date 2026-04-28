@@ -233,8 +233,8 @@ style: |
 <div style="flex: 1; min-width: 0;">
 
 - 扱える作業範囲が**7か月ごとに2倍**に伸びている
-- このトレンドが続けば、2029年までに人間が**1か月かかる作業**もAIが遂行
-- 同時に伸びている3つ:
+- このトレンドが続けば、2026年までに人間の専門家が**1か月かかる作業**もAIが遂行可能
+- 同時に伸びている3つの能力:
   - **知能** — より複雑な推論と判断
   - **記憶力** — より大きなコンテキストウィンドウ
   - **ツール使用** — ブラウザ、ターミナル、API
@@ -254,8 +254,8 @@ style: |
 ## METR: AI 작업 수행 시간의 지평선
 
 - 작업 범위가 **7개월마다 2배**로 늘어난다
-- 이 추세가 이어지면 2029년 안에 인간이 **1달 걸리는 작업**도 AI가 수행
-- 함께 커지는 세 가지:
+- 이 추세가 이어지면 2026년 안에 인간 전문가가 **1달 걸리는 작업**도 AI가 수행 가능
+- 함께 커지는 세 가지 능력:
   - **지능** — 더 복잡한 추론과 판단
   - **기억력** — 더 큰 컨텍스트 윈도우
   - **도구 사용** — 브라우저, 터미널, API
@@ -309,7 +309,7 @@ style: |
 - アーキテクチャ境界 — import、package、公開APIの制限
 - 高リスクな変更 — 認証、決済、DBスキーマは手動レビュー必須
 
-> <span class="accent">ルールはチーム/組織/会社のレベルで強制されなければならない。</span>
+> <span class="warn">ルールはリポジトリでソースコードと一緒に管理され、CI/CDと結合してプロジェクト/チーム/組織/会社レベルで強制されなければならない。</span>
 
 <!--
 [한국어 원문]
@@ -321,7 +321,7 @@ style: |
 - 아키텍처 경계 — import, package, 공개 API 제한
 - 고위험 변경 — 인증, 결제, DB 스키마는 수동 리뷰 필수
 
-> 규칙은 팀/조직/회사 수준에서 강제되어야 한다.
+> 규칙은 리포지토리에서 소스코드와 함께 관리되며, CI/CD와 결합되어 프로젝트/팀/조직/회사 수준에서 강제되어야 한다.
 -->
 
 ---
@@ -368,8 +368,7 @@ style: |
 | **テスト** | 検証の自動化 | AIが生成 + CIが強制 |
 | **デプロイ** | パイプライン | CDが自動実行 |
 
-> 好みの余地は一部だけ。
-> <span class="accent">だから最後まで人が握っていなければならないのは How ではなく意図だ。</span>
+> <span class="warn">How よりも Why が重要</span>
 
 <!--
 [한국어 원문]
@@ -383,8 +382,7 @@ style: |
 | **테스트** | 검증의 자동화 | AI가 생성 + CI가 강제 |
 | **배포** | 파이프라인 | CD가 자동 실행 |
 
-> 취향의 여지는 일부뿐이다.
-> 그래서 끝까지 사람이 쥐고 있어야 할 것은 How보다 의도다.
+> How 보다 Why가 중요
 -->
 
 ---
@@ -404,9 +402,13 @@ style: |
 
 XY 問題: 問題(X)ではなく、先に思いついた解法(Y)を固定してしまうこと
 
-- 「ビルドを通して」 → AI が**テストを削除する**
+- <span class="warn">❌ 「ビルドを通して」</span> — その場しのぎの解法を採る
+  → AI が**テストを削除して**ビルドだけ通す
+- <span class="accent">✓ 「テスト X がなぜ失敗するのか診断して、修正方針を教えて」</span> — 問題(X)をそのまま伝える
+  → AI が原因を分析して適切な修正案を提示する
 
 > AIは意図を推論するが、<span class="warn">意図が明確でないと、誤った解法を採用してしまう。</span>
+> <span class="accent">問題をそのまま伝えれば、AI は適切な解法を見つける。</span>
 
 <!--
 [한국어 원문]
@@ -414,9 +416,13 @@ XY 問題: 問題(X)ではなく、先に思いついた解法(Y)を固定して
 
 XY 문제: 문제(X) 대신 먼저 떠올린 해법(Y)을 고정하는 것
 
-- "빌드 통과 시켜줘" → AI가 **테스트를 삭제**
+- ❌ "빌드 통과 시켜줘" — 임시방편적인 해법을 사용
+  → AI가 **테스트를 삭제**해 빌드만 통과시킨다
+- ✓ "테스트 X가 왜 실패하는지 진단하고 수정 방향을 알려줘" — 문제(X)를 그대로 전달
+  → AI가 원인을 분석해 적절한 수정안을 제시한다
 
 > AI는 의도를 추론하지만, 의도가 명확하지 못하면 잘못된 해법을 사용한다.
+> 문제를 그대로 전달하면, AI는 적절한 해법을 찾는다.
 -->
 
 ---
@@ -593,6 +599,120 @@ GitHub **31만+ 스타**. 바이브 코딩이 어디까지 왔는지 보여주�
 
 > 인간은 아키텍처, 취향, 조율을 맡는다.
 > 구현, 보일러플레이트, 리팩터링은 에이전트에게.
+-->
+
+---
+
+## OpenClaw 解剖 ① — 薄い憲法、厚いランブック
+
+ルート `AGENTS.md` は **38行** のテレグラフ・スタイル
+
+```
+Telegraph style. Root rules only.
+Read scoped AGENTS.md before subtree work.
+```
+
+- ルートは **原則・境界・承認ルール** のみ — トークン削減・注意分散の防止
+- 詳細手順は **15個の skill** と下位 `AGENTS.md` に委譲
+- 長さ自体が危険度を反映
+  - `openclaw-pr-maintainer` — 59 LOC
+  - `openclaw-release-maintainer` — <span class="accent">574 LOC</span>
+  - `openclaw-ghsa-maintainer` — GHSA patch/publish シーケンス
+  - `openclaw-parallels-smoke` — VM smoke / OS別の例外
+
+> <span class="accent">「必要なガイドだけを読め」 — anti context-bloat 原則</span>
+
+<!--
+[한국어 원문]
+## OpenClaw 해부 ① — 얇은 헌법, 두꺼운 런북
+
+루트 `AGENTS.md`는 **38줄**의 텔레그래프 스타일
+
+```
+Telegraph style. Root rules only.
+Read scoped AGENTS.md before subtree work.
+```
+
+- 루트는 **원칙·경계·승인 규칙**만 — 토큰 절감, 주의 분산 방지
+- 세부 절차는 **15개 skill**과 하위 `AGENTS.md`로 위임
+- 길이 자체가 위험도를 반영
+  - `openclaw-pr-maintainer` — 59 LOC
+  - `openclaw-release-maintainer` — 574 LOC
+  - `openclaw-ghsa-maintainer` — GHSA patch/publish 시퀀스
+  - `openclaw-parallels-smoke` — VM smoke / OS별 예외
+
+> "필요한 가이드만 읽어라" — anti context-bloat 원칙
+-->
+
+---
+
+## OpenClaw 解剖 ② — 危険な作業の専用 skill + Evidence bar
+
+危険な作業ごとに prose guardrail が **証拠基準** を強制する
+
+`openclaw-pr-maintainer` のマージ・ルール:
+
+```
+1. symptom evidence       ← 症状がコード/ログで再現できるか
+2. root cause in code     ← どの経路のどの行が原因か
+3. fix touching that path ← 修正が実際にその経路を触っているか
+4. regression test        ← 回帰テストまたは例外理由
+```
+
+- <span class="warn">「issue text や AI rationale だけでマージ禁止」</span>
+- `release-maintainer` は version bump/publish に **明示的承認** を要求
+- <span class="accent">良い skill はコマンド集ではなく失敗防止装置</span>
+  - 「やらないこと / 先に確認すること / 承認が必要なこと / artifact の場所」
+
+<!--
+[한국어 원문]
+## OpenClaw 해부 ② — 위험 작업의 전용 skill + Evidence bar
+
+위험 작업마다 prose guardrail이 **증거 기준**을 강제한다
+
+`openclaw-pr-maintainer`의 머지 규칙:
+
+1. symptom evidence       ← 증상이 코드/로그로 재현되는가
+2. root cause in code     ← 어느 경로의 어느 줄이 원인인가
+3. fix touching that path ← 수정이 실제 그 경로를 건드리는가
+4. regression test        ← 회귀 테스트 또는 예외 사유
+
+- "이슈 텍스트나 AI rationale만으로 머지 금지"
+- release-maintainer는 version bump/publish에 명시적 승인 요구
+- 좋은 skill은 명령 모음이 아니라 실패 방지 장치
+-->
+
+---
+
+## OpenClaw 解剖 ③ — 失敗は prompt ではなく運用境界で
+
+OpenClaw で最も多く壊れた場所は **skill の中身ではなかった**
+
+| 壊れる地点 | 何が起きるのか |
+|-----------|---------------|
+| **経路** | `~` の解釈が違って、同じ skill が見えなくなる |
+| **隔離** | host のパスを sandbox の中でそのまま使えない |
+| **契約** | ドキュメントは「見える」と言うのにランタイムは「見えない」 |
+
+> <span class="accent">「skill が何をするか」よりも「どこで見え、どう実行されるか」のほうが頻繁に壊れる。</span>
+
+> <span class="warn">バイブコーディングのインフラは prompt 品質より先に — 経路・隔離・契約を設計せよ。</span>
+
+<!--
+[한국어 원문]
+## OpenClaw 해부 ③ — 실패는 prompt가 아니라 운영 경계에서
+
+OpenClaw에서 가장 많이 깨진 곳은 **skill의 내용이 아니었다**
+
+| 깨지는 지점 | 무슨 일이 일어나는가 |
+|------------|---------------------|
+| **경로** | `~`가 다르게 풀려, 같은 skill이 안 보인다 |
+| **격리** | host 경로를 sandbox 안에서 그대로 못 쓴다 |
+| **계약** | 문서는 "보인다"는데 런타임은 "안 보인다" |
+
+> "skill이 무엇을 하는가"보다 "어디서 보이고, 어떻게 실행되는가"가 더 자주 깨진다.
+
+> 바이브 코딩 인프라는 prompt 품질보다 먼저 — 경로·격리·계약을 설계하라.
 -->
 
 ---
