@@ -116,7 +116,7 @@ style: |
     text-shadow: 0 0 16px rgba(51, 255, 51, 0.6);
   }
   .accent { color: var(--fg-bright); text-shadow: 0 0 6px rgba(51, 255, 51, 0.5); }
-  .warn { color: var(--red); text-shadow: 0 0 6px rgba(255, 68, 68, 0.4); }
+  .warn { color: var(--amber); text-shadow: 0 0 6px rgba(255, 170, 0, 0.4); }
   .amber { color: var(--amber); text-shadow: 0 0 6px rgba(255, 170, 0, 0.4); }
   .dim { color: var(--comment); }
 ---
