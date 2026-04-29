@@ -667,14 +667,9 @@ GitHub **31만+ 스타**. 바이브 코딩이 어디까지 왔는지 보여주�
 
 ## OpenClaw 解剖 ① — 薄い憲法、厚いランブック
 
-ルート `AGENTS.md` は **38行** のテレグラフ・スタイル
+ルート `AGENTS.md` は約 **200行** 分の短文で構成
 
-```
-Telegraph style. Root rules only.
-Read scoped AGENTS.md before subtree work.
-```
-
-- ルートは **原則・境界・承認ルール** のみ — トークン削減・注意分散の防止
+- ルートは **原則・境界・承認ルール** のみ記述 — トークン削減・注意分散の防止
 - 詳細手順は **15個の skill** と下位 `AGENTS.md` に委譲
 - 長さ自体が危険度を反映
   - `openclaw-pr-maintainer` — 59 LOC
@@ -688,14 +683,9 @@ Read scoped AGENTS.md before subtree work.
 [한국어 원문]
 ## OpenClaw 해부 ① — 얇은 헌법, 두꺼운 런북
 
-루트 `AGENTS.md`는 **38줄**의 텔레그래프 스타일
+루트 `AGENTS.md`는 약 **200줄** 분량의 단문으로 구성
 
-```
-Telegraph style. Root rules only.
-Read scoped AGENTS.md before subtree work.
-```
-
-- 루트는 **원칙·경계·승인 규칙**만 — 토큰 절감, 주의 분산 방지
+- 루트는 **원칙·경계·승인 규칙**만 기술 — 토큰 절감, 주의 분산 방지
 - 세부 절차는 **15개 skill**과 하위 `AGENTS.md`로 위임
 - 길이 자체가 위험도를 반영
   - `openclaw-pr-maintainer` — 59 LOC
